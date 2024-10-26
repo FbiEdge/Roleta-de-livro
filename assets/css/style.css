@@ -1,0 +1,132 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+  }
+  
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    background: #000;
+  }
+  
+  .header {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #FFD700;
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.7);
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+  
+  .wheel-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .wheel-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  #spinButton {
+    margin-top: 15px;
+    padding: 12px 25px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+    background-color: #FFD700;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+  }
+  
+  #spinButton:hover {
+    background-color: #FFC300;
+    transform: scale(1.05);
+  }
+  
+  .book-display {
+    text-align: center;
+    margin-top: 20px;
+    background-color: #333;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 15px rgba(255, 255, 255, 0.2);
+    max-width: 300px;
+    color: #FFD700;
+    transition: transform 0.3s;
+  }
+  
+  .book-display:hover {
+    transform: scale(1.02);
+  }
+  
+  #bookCover {
+    width: 150px;
+    height: 220px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+  }
+  
+  #bookTitle {
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #FFFFFF;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  }
+  
+  #bookAuthor {
+    font-size: 16px;
+    color: #FFFFFF;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  }
+  
+  #bookSummary {
+    font-size: 14px;
+    color: #FFFFFF;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    margin-top: 10px;
+  }
+  
+  .side-book {
+    width: 100px;
+    height: 140px;
+    background-image: url("https://w7.pngwing.com/pngs/18/125/png-transparent-question-mark-book-cover-livres-angle-text-rectangle.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+    animation: spin 3s linear infinite;
+    transform-style: preserve-3d;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotateY(0deg); }
+    100% { transform: rotateY(360deg); }
+  }
+  
+  #wheel {
+    border-radius: 50%;
+    box-shadow: 0 8px 15px rgba(255, 255, 255, 0.3);
+    border: 10px solid #FFD700;
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  

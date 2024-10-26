@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roleta de Livros</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="assets/js/script.js" defer></script>
+</head>
+<body>
+  <div class="header">Qual livro você vai ler? Tente a sorte!</div>
+  <div class="container">
+    <div class="wheel-section">
+      <div id="leftBook" class="side-book"></div>
+      <div class="wheel-container">
+        <canvas id="wheel" width="500" height="500"></canvas>
+        <button id="spinButton">Rodar a Roleta</button>
+      </div>
+      <div id="rightBook" class="side-book"></div>
+    </div>
+    <div class="book-display">
+      <img id="bookCover" src="https://w7.pngwing.com/pngs/18/125/png-transparent-question-mark-book-cover-livres-angle-text-rectangle.png" alt="Capa do Livro">
+      <p id="bookTitle">Título do Livro</p>
+      <p id="bookAuthor">Autor: ???</p>
+      <p id="bookSummary">Resumo: ???</p> 
+    </div>
+  </div>
+</body>
+</html>
