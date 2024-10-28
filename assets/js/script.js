@@ -6,14 +6,19 @@ const spinButton = document.getElementById("spinButton");
 const bookCover = document.getElementById("bookCover");
 const bookTitle = document.getElementById("bookTitle");
 const bookAuthor = document.getElementById("bookAuthor");
+const bookSummary = document.getElementById("bookSummary"); // Adicionei isso para o resumo do livro
 
 let isSpinning = false;
 let selectedBookIndex = 0;
+const rotationIncrement = 30; 
+const totalRotation = 3600; 
+const centerX = wheel.width / 2;
+const centerY = wheel.height / 2;
 
 async function fetchBooks() {
   try {
     for (let genre of genres) {
-      const response = await fetch(`https://openlibrary.org/subjects/${genre}.json?limit=20`); 
+      const response = await fetch(`https://openlibrary.org/subjects/${genre}.json?limit=20`);
       const data = await response.json();
       data.works.forEach(work => {
         books.push({
@@ -22,7 +27,7 @@ async function fetchBooks() {
           cover: work.cover_id
             ? `https://covers.openlibrary.org/b/id/${work.cover_id}-L.jpg`
             : "https://w7.pngwing.com/pngs/18/125/png-transparent-question-mark-book-cover-livres-angle-text-rectangle.png",
-          key: work.key // Adiciona a chave do livro para busca posterior
+          key: work.key
         });
       });
     }
@@ -33,25 +38,25 @@ async function fetchBooks() {
 }
 
 function drawWheel() {
-  const colors = ["#FFD700", "#000000"]; 
+  ctx.clearRect(0, 0, wheel.width, wheel.height);
+  const colors = ["#FFD700", "#000000"];
   const angle = (2 * Math.PI) / books.length;
 
   books.forEach((book, index) => {
     ctx.beginPath();
-    ctx.moveTo(250, 250);
-    ctx.arc(250, 250, 250, angle * index, angle * (index + 1));
-    ctx.fillStyle = colors[index % colors.length]; 
+    ctx.moveTo(centerX, centerY);
+    ctx.arc(centerX, centerY, centerX, angle * index, angle * (index + 1));
+    ctx.fillStyle = colors[index % colors.length];
     ctx.fill();
     ctx.stroke();
     ctx.closePath();
 
     ctx.save();
-    ctx.translate(250, 250);
+    ctx.translate(centerX, centerY);
     ctx.rotate(angle * index + angle / 2);
-    ctx.textAlign = "right";
-    ctx.fillStyle = "#FFFFFF"; 
-    ctx.font = "bold 16px Arial";
-    ctx.fillText(book.title, 200, 10);
+    ctx.fillStyle = "#FFFFFF";
+    ctx.font = "bold 14px Arial";
+    ctx.fillText(book.title, centerX - 40, 10);
     ctx.restore();
   });
 }
@@ -73,14 +78,14 @@ async function showBook() {
   bookTitle.textContent = book.title;
   bookAuthor.textContent = `Autor: ${book.author}`;
 
-  const bookDetails = await fetchBookDetails(book.key.split('/').pop()); // Extrai o book_id do link
+  const bookDetails = await fetchBookDetails(book.key.split('/').pop());
   if (bookDetails && bookDetails.description) {
     const description = typeof bookDetails.description === 'string'
       ? bookDetails.description
-      : bookDetails.description.value || "Resumo não disponível."; // Lida com diferentes formatos de descrição
-    document.getElementById("bookSummary").textContent = `Resumo: ${description}`;
+      : bookDetails.description.value || "Resumo não disponível.";
+    bookSummary.textContent = `Resumo: ${description}`;
   } else {
-    document.getElementById("bookSummary").textContent = "Resumo não disponível.";
+    bookSummary.textContent = "Resumo não disponível.";
   }
 }
 
@@ -88,18 +93,18 @@ function spinWheel() {
   if (isSpinning || books.length === 0) return;
 
   isSpinning = true;
-  let rotation = Math.random() * 360 + 3600; 
-  let start = 0;
+  let currentRotation = 0;
+
+  selectedBookIndex = Math.floor(Math.random() * books.length); // Escolhe um índice aleatório
 
   const spin = setInterval(() => {
-    start += 20; 
-    wheel.style.transform = `rotate(${start}deg)`;
+    currentRotation += rotationIncrement;
+    wheel.style.transform = `rotate(${currentRotation}deg)`;
 
-    if (start >= rotation) {
+    if (currentRotation >= totalRotation) {
       clearInterval(spin);
       isSpinning = false;
-      selectedBookIndex = Math.floor(((start % 360) / 360) * books.length);
-      showBook();
+      showBook(); // Chama a função para mostrar o livro
     }
   }, 20);
 }
